@@ -11500,28 +11500,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Paulo Soares\\.nuget\\packages\\": {},
+    "C:\\Users\\diogo\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Paulo Soares\\Documents\\Diogo\\Trabalho\\ISEP\\3º Ano\\ARQSI\\PROJETO\\SicApi\\SicApi.csproj",
+      "projectUniqueName": "d:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\IT1\\SicApi\\SicApi.csproj",
       "projectName": "SicApi",
-      "projectPath": "C:\\Users\\Paulo Soares\\Documents\\Diogo\\Trabalho\\ISEP\\3º Ano\\ARQSI\\PROJETO\\SicApi\\SicApi.csproj",
-      "packagesPath": "C:\\Users\\Paulo Soares\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Paulo Soares\\Documents\\Diogo\\Trabalho\\ISEP\\3º Ano\\ARQSI\\PROJETO\\SicApi\\obj\\",
+      "projectPath": "d:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\IT1\\SicApi\\SicApi.csproj",
+      "packagesPath": "C:\\Users\\diogo\\.nuget\\packages\\",
+      "outputPath": "d:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\IT1\\SicApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Paulo Soares\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\diogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
