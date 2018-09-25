@@ -1,14 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace SicApi.Models
 {
-    public class SicContext : DbContext
+    public class BloggingContext : DbContext
     {
-        public SicContext(DbContextOptions<SicContext> options)
+        public BloggingContext(DbContextOptions<BloggingContext> options)
             : base(options)
-        {
-        }
+        { }
 
-        public DbSet<SicItem> SicItems { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
     }
 }
