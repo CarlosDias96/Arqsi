@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SicApi.Models
 {
-    public class BloggingContext : DbContext
+    public class SicContext : DbContext
     {
-        public BloggingContext(DbContextOptions<BloggingContext> options)
+        public SicContext(DbContextOptions<SicContext> options)
             : base(options)
         { }
 
