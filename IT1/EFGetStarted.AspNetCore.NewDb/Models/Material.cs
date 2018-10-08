@@ -2,7 +2,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Models
 {
     public class Material
     {
-        public String id { get; set; }
+        public string id { get; set; }
 
         public string Nome { get; set; }
 

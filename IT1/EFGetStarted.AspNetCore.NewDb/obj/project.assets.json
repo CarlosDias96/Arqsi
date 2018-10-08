@@ -12550,11 +12550,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\carlo\\EFGetStarted.AspNetCore.NewDb\\EFGetStarted.AspNetCore.NewDb.csproj",
+      "projectUniqueName": "C:\\Users\\carlo\\Desktop\\Arqsi\\IT1\\EFGetStarted.AspNetCore.NewDb\\EFGetStarted.AspNetCore.NewDb.csproj",
       "projectName": "EFGetStarted.AspNetCore.NewDb",
-      "projectPath": "C:\\Users\\carlo\\EFGetStarted.AspNetCore.NewDb\\EFGetStarted.AspNetCore.NewDb.csproj",
+      "projectPath": "C:\\Users\\carlo\\Desktop\\Arqsi\\IT1\\EFGetStarted.AspNetCore.NewDb\\EFGetStarted.AspNetCore.NewDb.csproj",
       "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\carlo\\EFGetStarted.AspNetCore.NewDb\\obj\\",
+      "outputPath": "C:\\Users\\carlo\\Desktop\\Arqsi\\IT1\\EFGetStarted.AspNetCore.NewDb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
