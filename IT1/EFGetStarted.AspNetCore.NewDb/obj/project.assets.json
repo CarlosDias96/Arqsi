@@ -12544,23 +12544,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\carlo\\.nuget\\packages\\": {},
+    "C:\\Users\\diogo\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\carlo\\Desktop\\Arqsi\\IT1\\EFGetStarted.AspNetCore.NewDb\\EFGetStarted.AspNetCore.NewDb.csproj",
+      "projectUniqueName": "d:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\IT1\\EFGetStarted.AspNetCore.NewDb\\EFGetStarted.AspNetCore.NewDb.csproj",
       "projectName": "EFGetStarted.AspNetCore.NewDb",
-      "projectPath": "C:\\Users\\carlo\\Desktop\\Arqsi\\IT1\\EFGetStarted.AspNetCore.NewDb\\EFGetStarted.AspNetCore.NewDb.csproj",
-      "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\carlo\\Desktop\\Arqsi\\IT1\\EFGetStarted.AspNetCore.NewDb\\obj\\",
+      "projectPath": "d:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\IT1\\EFGetStarted.AspNetCore.NewDb\\EFGetStarted.AspNetCore.NewDb.csproj",
+      "packagesPath": "C:\\Users\\diogo\\.nuget\\packages\\",
+      "outputPath": "d:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\IT1\\EFGetStarted.AspNetCore.NewDb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\carlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\diogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12599,7 +12599,6 @@
             "version": "[2.1.4, )"
           },
           "Microsoft.NETCore.App": {
-            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
