@@ -48,7 +48,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Controllers
 
         // PUT: api/Material/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMaterial([FromRoute] string id, [FromBody] Material material)
+        public async Task<IActionResult> PutMaterial([FromRoute] int id, [FromBody] Material material)
         {
             if (!ModelState.IsValid)
             {
@@ -117,7 +117,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Controllers
             return Ok(material);
         }
 
-        private bool MaterialExists(string id)
+        private bool MaterialExists(int id)
         {
             return _context.Material.Any(e => e.Id == id);
         }

@@ -2,7 +2,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Models
 {
     public class DimensaoDiscreta
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public float Altura { get; set; }
 

@@ -4,7 +4,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Models
 {
     public class Dimensao
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public DimensaoContinua DimContinua { get; set; }
 

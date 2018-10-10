@@ -47,7 +47,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Controllers
 
         // PUT: api/Acabamento/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAcabamento([FromRoute] string id, [FromBody] Acabamento acabamento)
+        public async Task<IActionResult> PutAcabamento([FromRoute] int id, [FromBody] Acabamento acabamento)
         {
             if (!ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Controllers
             return Ok(acabamento);
         }
 
-        private bool AcabamentoExists(string id)
+        private bool AcabamentoExists(int id)
         {
             return _context.Acabamento.Any(e => e.Id == id);
         }
