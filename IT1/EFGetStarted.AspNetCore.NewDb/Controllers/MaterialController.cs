@@ -55,7 +55,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != material.id)
+            if (id != material.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Controllers
             _context.Material.Add(material);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMaterial", new { id = material.id }, material);
+            return CreatedAtAction("GetMaterial", new { id = material.Id }, material);
         }
 
         // DELETE: api/Material/5
@@ -119,7 +119,7 @@ namespace EFGetStarted.AspNetCore.NewDb.Controllers
 
         private bool MaterialExists(string id)
         {
-            return _context.Material.Any(e => e.id == id);
+            return _context.Material.Any(e => e.Id == id);
         }
     }
 }

@@ -1,10 +1,16 @@
+using System.Collections.Generic;
+
 namespace EFGetStarted.AspNetCore.NewDb.Models
 {
-    public class DimensaoContinua : Dimensao
+    public class DimensaoContinua
     {
-        System.Collections.Generic.List<float> margensAlturas;
-        System.Collections.Generic.List<float> margensProfundidades;
-        System.Collections.Generic.List<float> margensLarguras;
+        public string Id { get; set; }
+
+        List<float> MargensAlturas { get; set; }
+
+        List<float> MargensProfundidades { get; set; }
+
+        List<float> MargensLarguras { get; set; }
     }
 
 
