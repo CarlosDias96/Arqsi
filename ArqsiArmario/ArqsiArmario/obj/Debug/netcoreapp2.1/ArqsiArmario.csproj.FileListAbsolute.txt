@@ -1,0 +1,14 @@
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.deps.json
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.runtimeconfig.json
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.runtimeconfig.dev.json
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.dll
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.pdb
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.csproj.CoreCompileInputs.cache
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorAssemblyInfo.cache
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorAssemblyInfo.cs
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.AssemblyInfoInputs.cache
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.AssemblyInfo.cs
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorTargetAssemblyInfo.cache
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.dll
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.pdb
+C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.csprojAssemblyReference.cache
