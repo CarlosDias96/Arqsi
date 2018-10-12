@@ -4,6 +4,7 @@ namespace ArqsiArmario.Models
 {
     public class DimensaoContinua
     {
+       public DimensaoContinua() { }
         public int Id { get; set; }
 
         public float AlturaMinima { get; set; }

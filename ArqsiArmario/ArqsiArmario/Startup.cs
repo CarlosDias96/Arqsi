@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using ArqsiArmario.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ArqsiArmario
 {
@@ -27,9 +28,23 @@ namespace ArqsiArmario
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ArqsiContext>(opt =>
-               opt.UseInMemoryDatabase("ArmariosList"));
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var connection = "Server=tcp:arqsiserverfinal.database.windows.net,1433;Initial Catalog=arqsidatabase;Persist Security Info=False;User ID=dartacao;Password=3Mosqueteiros;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            services.AddDbContext<ArqsiContext>
+                (options => options.UseSqlServer(connection));
+            // BloggingContext requires
+            // using EFGetStarted.AspNetCore.NewDb.Models;
+            // UseSqlite requires
+            // using Microsoft.EntityFrameworkCore;
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,8 +58,7 @@ namespace ArqsiArmario
             {
                 app.UseHsts();
             }
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+
             app.UseHttpsRedirection();
             app.UseMvc();
         }

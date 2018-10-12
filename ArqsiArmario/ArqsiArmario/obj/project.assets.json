@@ -11506,11 +11506,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\diogo\\Desktop\\ArqsiArmario\\ArqsiArmario\\ArqsiArmario.csproj",
+      "projectUniqueName": "D:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\ArqsiArmario\\ArqsiArmario\\ArqsiArmario.csproj",
       "projectName": "ArqsiArmario",
-      "projectPath": "C:\\Users\\diogo\\Desktop\\ArqsiArmario\\ArqsiArmario\\ArqsiArmario.csproj",
+      "projectPath": "D:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\ArqsiArmario\\ArqsiArmario\\ArqsiArmario.csproj",
       "packagesPath": "C:\\Users\\diogo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\diogo\\Desktop\\ArqsiArmario\\ArqsiArmario\\obj\\",
+      "outputPath": "D:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\ArqsiArmario\\ArqsiArmario\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

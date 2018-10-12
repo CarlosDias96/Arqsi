@@ -59,7 +59,7 @@ namespace TodoApi.Controllers
             }
 
             todo.Nome = item.Nome;
-            todo.Acabamento = item.Acabamento;
+            todo.Acabamentos = item.Acabamentos;
             todo.AcabamentoId = item.AcabamentoId;
 
             _context.Materiais.Update(todo);
