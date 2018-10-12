@@ -20,7 +20,7 @@ namespace TodoApi.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Materiais.Add(new Material { Nome = "Item1" });
+                _context.Materiais.Add(new Material {});
                 _context.SaveChanges();
             }
         }
@@ -59,7 +59,7 @@ namespace TodoApi.Controllers
             }
 
             todo.Nome = item.Nome;
-            todo.Acabamentos = item.Acabamentos;
+            todo.Acabamento = item.Acabamento;
             todo.AcabamentoId = item.AcabamentoId;
 
             _context.Materiais.Update(todo);

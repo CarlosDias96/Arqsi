@@ -9,14 +9,14 @@ namespace ArqsiArmario.Models
 
         public string Nome { get; set; }
 
-        public List<Acabamento> Acabamentos { get; set; }
+        public Acabamento Acabamento { get; set; }
 
-        public int AcabamentoId { get; set; }
+        public int? AcabamentoId { get; set; }
         public Material() { }
-        public Material(string Nome, List<Acabamento> Acabamentos)
+        public Material(string Nome, Acabamento Acabamento)
         {
             this.Nome = Nome;
-            this.Acabamentos = Acabamentos;
+            this.Acabamento = Acabamento;
         }
 
     }

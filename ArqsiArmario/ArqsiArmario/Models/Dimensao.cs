@@ -7,9 +7,9 @@ namespace ArqsiArmario.Models
      public Dimensao() { }
         public int Id { get; set; }
 
-        public DimensaoContinua DimContinua { get; set; }
-
-        public List<DimensaoDiscreta> DimDiscreta { get; set; }
+        public DimensaoDC Altura;
+        public DimensaoDC Profundidade;
+        public DimensaoDC Largura;
 
     }
 }

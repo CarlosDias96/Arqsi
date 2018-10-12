@@ -8,33 +8,33 @@ namespace TodoApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AcabamentoController : ControllerBase
+    public class DimensaoController : ControllerBase
     {
         private readonly ArqsiContext _context;
 
-        public AcabamentoController(ArqsiContext context)
+        public DimensaoController(ArqsiContext context)
         {
             _context = context;
 
-            if (_context.Acabamentos.Count() == 0)
+            if (_context.Dimensoes.Count() == 0)
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Acabamentos.Add(new Acabamento {});
+                _context.Dimensoes.Add(new Dimensao { });
                 _context.SaveChanges();
             }
         }
 
         [HttpGet]
-        public ActionResult<List<Acabamento>> GetAcabamentos()
+        public ActionResult<List<Dimensao>> GetDimensoes()
         {
-            return _context.Acabamentos.ToList();
+            return _context.Dimensoes.ToList();
         }
 
-        [HttpGet("{id}", Name = "GetAcabamento")]
-        public ActionResult<Acabamento> GetAcabamentoById(int id)
+        [HttpGet("{id}", Name = "GetDimensao")]
+        public ActionResult<Dimensao> GetDimensaoByYd(int id)
         {
-            var item = _context.Acabamentos.Find(id);
+            var item = _context.Dimensoes.Find(id);
             if (item == null)
             {
                 return NotFound();
@@ -42,38 +42,40 @@ namespace TodoApi.Controllers
             return item;
         }
         [HttpPost]
-        public IActionResult Create(Acabamento item)
+        public IActionResult Create(Dimensao item)
         {
-            _context.Acabamentos.Add(item);
+            _context.Dimensoes.Add(item);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetAcabamento", new { id = item.Id }, item);
+            return CreatedAtRoute("GetDimensoes", new { id = item.Id }, item);
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Acabamento item)
+        public IActionResult Update(int id, Dimensao item)
         {
-            var todo = _context.Acabamentos.Find(id);
+            var todo = _context.Dimensoes.Find(id);
             if (todo == null)
             {
                 return NotFound();
             }
 
-            todo.Nome = item.Nome;
-          
-            _context.Acabamentos.Update(todo);
+            todo.Altura = item.Altura;
+            todo.Largura = item.Largura;
+            todo.Profundidade = item.Profundidade;
+
+            _context.Dimensoes.Update(todo);
             _context.SaveChanges();
             return NoContent();
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var todo = _context.Acabamentos.Find(id);
+            var todo = _context.Dimensoes.Find(id);
             if (todo == null)
             {
                 return NotFound();
             }
 
-            _context.Acabamentos.Remove(todo);
+            _context.Dimensoes.Remove(todo);
             _context.SaveChanges();
             return NoContent();
         }

@@ -20,7 +20,7 @@ namespace TodoApi.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Categorias.Add(new Categoria { Nome = "Item1" });
+                _context.Categorias.Add(new Categoria {});
                 _context.SaveChanges();
             }
         }

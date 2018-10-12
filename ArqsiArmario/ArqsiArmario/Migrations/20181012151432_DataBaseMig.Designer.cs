@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArqsiArmario.Migrations
 {
     [DbContext(typeof(ArqsiContext))]
-    [Migration("20181012111125_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20181012151432_DataBaseMig")]
+    partial class DataBaseMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,13 +27,9 @@ namespace ArqsiArmario.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("MaterialId");
-
                     b.Property<string>("Nome");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MaterialId");
 
                     b.ToTable("Acabamentos");
                 });
@@ -44,9 +40,15 @@ namespace ArqsiArmario.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoriaId");
+
+                    b.Property<bool>("Composto");
+
                     b.Property<string>("Nome");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
 
                     b.ToTable("Categorias");
                 });
@@ -57,57 +59,9 @@ namespace ArqsiArmario.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DimContinuaId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("DimContinuaId");
 
                     b.ToTable("Dimensoes");
-                });
-
-            modelBuilder.Entity("ArqsiArmario.Models.DimensaoContinua", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float?>("AlturaMaxima");
-
-                    b.Property<float>("AlturaMinima");
-
-                    b.Property<float?>("LarguraMaxima");
-
-                    b.Property<float>("LarguraMinima");
-
-                    b.Property<float>("ProfundidadeMinima");
-
-                    b.Property<float?>("ProfunidadeMaxima");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DimensaoContinua");
-                });
-
-            modelBuilder.Entity("ArqsiArmario.Models.DimensaoDiscreta", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float>("Altura");
-
-                    b.Property<int?>("DimensaoId");
-
-                    b.Property<float>("Largura");
-
-                    b.Property<float>("Profundidade");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DimensaoId");
-
-                    b.ToTable("DimensaoDiscreta");
                 });
 
             modelBuilder.Entity("ArqsiArmario.Models.Material", b =>
@@ -116,11 +70,13 @@ namespace ArqsiArmario.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AcabamentoId");
+                    b.Property<int?>("AcabamentoId");
 
                     b.Property<string>("Nome");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AcabamentoId");
 
                     b.ToTable("Materiais");
                 });
@@ -131,17 +87,15 @@ namespace ArqsiArmario.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoriaId");
+                    b.Property<bool>("Composto");
 
-                    b.Property<int>("MaterialId");
+                    b.Property<int?>("MaterialId");
 
                     b.Property<string>("Nome");
 
                     b.Property<int?>("ProdutoId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoriaId");
 
                     b.HasIndex("MaterialId");
 
@@ -150,38 +104,25 @@ namespace ArqsiArmario.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("ArqsiArmario.Models.Acabamento", b =>
+            modelBuilder.Entity("ArqsiArmario.Models.Categoria", b =>
                 {
-                    b.HasOne("ArqsiArmario.Models.Material")
-                        .WithMany("Acabamentos")
-                        .HasForeignKey("MaterialId");
+                    b.HasOne("ArqsiArmario.Models.Categoria", "CategoriaPai")
+                        .WithMany("SubCategorias")
+                        .HasForeignKey("CategoriaId");
                 });
 
-            modelBuilder.Entity("ArqsiArmario.Models.Dimensao", b =>
+            modelBuilder.Entity("ArqsiArmario.Models.Material", b =>
                 {
-                    b.HasOne("ArqsiArmario.Models.DimensaoContinua", "DimContinua")
+                    b.HasOne("ArqsiArmario.Models.Acabamento", "Acabamento")
                         .WithMany()
-                        .HasForeignKey("DimContinuaId");
-                });
-
-            modelBuilder.Entity("ArqsiArmario.Models.DimensaoDiscreta", b =>
-                {
-                    b.HasOne("ArqsiArmario.Models.Dimensao")
-                        .WithMany("DimDiscreta")
-                        .HasForeignKey("DimensaoId");
+                        .HasForeignKey("AcabamentoId");
                 });
 
             modelBuilder.Entity("ArqsiArmario.Models.Produto", b =>
                 {
-                    b.HasOne("ArqsiArmario.Models.Categoria", "Categoria")
-                        .WithMany()
-                        .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("ArqsiArmario.Models.Material", "Material")
                         .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MaterialId");
 
                     b.HasOne("ArqsiArmario.Models.Produto")
                         .WithMany("Produtos")

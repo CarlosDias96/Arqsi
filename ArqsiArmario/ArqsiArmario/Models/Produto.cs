@@ -5,17 +5,16 @@ namespace ArqsiArmario.Models
     public class Produto
     {
         public int Id { get; set; }
+        public bool Composto { get; set; }
         public string Nome { get; set; }
-        public List<Produto> Produtos { get; set;}
+        public ICollection<Produto> Produtos { get; set;}
 
         public Material Material { get; set; }
-        public int MaterialId { get; set; }
+        public int? MaterialId { get; set; }
 
-        public Categoria Categoria { get; set; }
-        public int CategoriaId { get; set; }
-        /*public int? categoriaId
-        [ForeignKey["Categoria"]]
-        public virtual Categoria Categoria;*/
+        public int? CategoriaId;
+        public Categoria Categoria;
+
         public Produto() { }
         public Produto(string Nome,List<Produto> Produtos, Material Material, Categoria Categoria)
         {

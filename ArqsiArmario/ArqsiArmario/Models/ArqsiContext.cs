@@ -12,13 +12,7 @@ namespace ArqsiArmario.Models
           : base(options)
         {
         }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<DimensaoContinua>();
-            builder.Entity<DimensaoDiscreta>();
-
-            base.OnModelCreating(builder);
-        }
+        
         public DbSet<Acabamento> Acabamentos { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Dimensao> Dimensoes { get; set; }
