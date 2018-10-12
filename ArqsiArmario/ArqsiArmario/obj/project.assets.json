@@ -11500,23 +11500,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\diogo\\.nuget\\packages\\": {},
+    "C:\\Users\\Paulo Soares\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "D:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\ArqsiArmario\\ArqsiArmario\\ArqsiArmario.csproj",
       "projectName": "ArqsiArmario",
       "projectPath": "D:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\ArqsiArmario\\ArqsiArmario\\ArqsiArmario.csproj",
       "packagesPath": "C:\\Users\\diogo\\.nuget\\packages\\",
       "outputPath": "D:\\diogo\\Documents\\Docs\\ISEP\\3 ANO\\ARQSI\\Projeto\\ArqsiArmario\\ArqsiArmario\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\Paulo Soares\\Documents\\Diogo\\Trabalho\\ISEP\\3º Ano\\ARQSI\\PROJETO\\3db_arqsi_1150802_1150989_1151124\\ArqsiArmario\\ArqsiArmario\\ArqsiArmario.csproj",
+      "projectName": "ArqsiArmario",
+      "projectPath": "C:\\Users\\Paulo Soares\\Documents\\Diogo\\Trabalho\\ISEP\\3º Ano\\ARQSI\\PROJETO\\3db_arqsi_1150802_1150989_1151124\\ArqsiArmario\\ArqsiArmario\\ArqsiArmario.csproj",
+      "packagesPath": "C:\\Users\\Paulo Soares\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Paulo Soares\\Documents\\Diogo\\Trabalho\\ISEP\\3º Ano\\ARQSI\\PROJETO\\3db_arqsi_1150802_1150989_1151124\\ArqsiArmario\\ArqsiArmario\\obj\\",
+>>>>>>> 5b5576e3e5dec6facfea0747e7bb7ebf65340dbb
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\diogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Paulo Soares\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

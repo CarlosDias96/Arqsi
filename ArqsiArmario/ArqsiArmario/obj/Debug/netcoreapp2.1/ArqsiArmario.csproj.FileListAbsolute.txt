@@ -12,6 +12,7 @@ C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiAr
 C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.dll
 C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.pdb
 C:\Users\diogo\Desktop\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.csprojAssemblyReference.cache
+<<<<<<< HEAD
 D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.deps.json
 D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.runtimeconfig.json
 D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.runtimeconfig.dev.json
@@ -26,3 +27,19 @@ D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\D
 D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorTargetAssemblyInfo.cache
 D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.dll
 D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.pdb
+=======
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.dll
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.pdb
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.deps.json
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.runtimeconfig.json
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.runtimeconfig.dev.json
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.dll
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.pdb
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.csprojAssemblyReference.cache
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.csproj.CoreCompileInputs.cache
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorAssemblyInfo.cache
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorAssemblyInfo.cs
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.AssemblyInfoInputs.cache
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.AssemblyInfo.cs
+C:\Users\Paulo Soares\Documents\Diogo\Trabalho\ISEP\3º Ano\ARQSI\PROJETO\3db_arqsi_1150802_1150989_1151124\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorTargetAssemblyInfo.cache
+>>>>>>> 5b5576e3e5dec6facfea0747e7bb7ebf65340dbb
