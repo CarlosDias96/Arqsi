@@ -12,8 +12,8 @@ namespace ArqsiArmario.Models
         public Material Material { get; set; }
         public int? MaterialId { get; set; }
 
-        public int? CategoriaId;
-        public Categoria Categoria;
+        public int? CategoriaId { get; set; }
+        public Categoria Categoria { get; set; }
 
         public Produto() { }
         public Produto(string Nome,List<Produto> Produtos, Material Material, Categoria Categoria)

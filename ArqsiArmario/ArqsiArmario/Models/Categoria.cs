@@ -14,6 +14,7 @@ namespace ArqsiArmario.Models
         public int Id { get; set; }
         public bool Composto { get; set; }
         public string Nome { get; set; }
+        public string Descricao { get; set; }
         public virtual Categoria CategoriaPai { get; set; }
         public int? CategoriaId { get; set; }
         public ICollection<Categoria> SubCategorias { get; set; }
