@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ArqsiArmario.Models;
+using ArqsiArmario.Repository;
 
 namespace TodoApi.Controllers
 {
@@ -11,11 +12,12 @@ namespace TodoApi.Controllers
     public class AcabamentoController : ControllerBase
     {
         private readonly ArqsiContext _context;
+        private AcabamentoRepository repacabamento;
 
         public AcabamentoController(ArqsiContext context)
         {
-            _context = context;
 
+            _context = context; 
             if (_context.Acabamentos.Count() == 0)
             {
                 // Create a new TodoItem if collection is empty,
@@ -23,6 +25,9 @@ namespace TodoApi.Controllers
                 _context.Acabamentos.Add(new Acabamento {});
                 _context.SaveChanges();
             }
+
+
+            this.repacabamento = new AcabamentoRepository(_context);
         }
 
         [HttpGet]
