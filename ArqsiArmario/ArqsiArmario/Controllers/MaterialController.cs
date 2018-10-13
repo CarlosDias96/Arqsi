@@ -21,19 +21,19 @@ namespace TodoApi.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Materiais.Add(new MaterialDto {});
+                _context.Materiais.Add(new Material {});
                 _context.SaveChanges();
             }
         }
 
         [HttpGet]
-        public ActionResult<List<MaterialDto>> GetMateriais()
+        public ActionResult<List<Material>> GetMateriais()
         {
             return _context.Materiais.ToList();
         }
 
         [HttpGet("{id}", Name = "GetMaterial")]
-        public ActionResult<MaterialDto> GetMaterialById(int id)
+        public ActionResult<Material> GetMaterialById(int id)
         {
             var item = _context.Materiais.Find(id);
             if (item == null)
@@ -43,7 +43,7 @@ namespace TodoApi.Controllers
             return item;
         }
         [HttpPost]
-        public IActionResult Create(MaterialDto item)
+        public IActionResult Create(Material item)
         {
             _context.Materiais.Add(item);
             _context.SaveChanges();
@@ -51,7 +51,7 @@ namespace TodoApi.Controllers
             return CreatedAtRoute("GetMaterial", new { id = item.Id }, item);
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, MaterialDto item)
+        public IActionResult Update(int id, Material item)
         {
             var todo = _context.Materiais.Find(id);
             if (todo == null)
@@ -60,7 +60,7 @@ namespace TodoApi.Controllers
             }
 
             todo.Nome = item.Nome;
-            todo.Acabamento = item.Acabamento;
+            todo.Acabamentos = item.Acabamentos;
             todo.AcabamentoId = item.AcabamentoId;
 
             _context.Materiais.Update(todo);

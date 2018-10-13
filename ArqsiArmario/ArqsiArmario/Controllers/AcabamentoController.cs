@@ -23,7 +23,7 @@ namespace TodoApi.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Acabamentos.Add(new AcabamentoDto {});
+                _context.Acabamentos.Add(new Acabamento {});
                 _context.SaveChanges();
             }
 
@@ -32,13 +32,13 @@ namespace TodoApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<AcabamentoDto>> GetAcabamentos()
+        public ActionResult<List<Acabamento>> GetAcabamentos()
         {
             return _context.Acabamentos.ToList();
         }
 
         [HttpGet("{id}", Name = "GetAcabamento")]
-        public ActionResult<AcabamentoDto> GetAcabamentoById(int id)
+        public ActionResult<Acabamento> GetAcabamentoById(int id)
         {
             var item = _context.Acabamentos.Find(id);
             if (item == null)
@@ -48,7 +48,7 @@ namespace TodoApi.Controllers
             return item;
         }
         [HttpPost]
-        public IActionResult Create(AcabamentoDto item)
+        public IActionResult Create(Acabamento item)
         {
             _context.Acabamentos.Add(item);
             _context.SaveChanges();
@@ -56,7 +56,7 @@ namespace TodoApi.Controllers
             return CreatedAtRoute("GetAcabamento", new { id = item.Id }, item);
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, AcabamentoDto item)
+        public IActionResult Update(int id, Acabamento item)
         {
             var todo = _context.Acabamentos.Find(id);
             if (todo == null)

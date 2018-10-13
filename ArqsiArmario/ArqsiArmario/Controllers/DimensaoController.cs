@@ -21,19 +21,19 @@ namespace TodoApi.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Dimensoes.Add(new DimensaoDto { });
+                _context.Dimensoes.Add(new Dimensao { });
                 _context.SaveChanges();
             }
         }
 
         [HttpGet]
-        public ActionResult<List<DimensaoDto>> GetDimensoes()
+        public ActionResult<List<Dimensao>> GetDimensoes()
         {
             return _context.Dimensoes.ToList();
         }
 
         [HttpGet("{id}", Name = "GetDimensao")]
-        public ActionResult<DimensaoDto> GetDimensaoByYd(int id)
+        public ActionResult<Dimensao> GetDimensaoByYd(int id)
         {
             var item = _context.Dimensoes.Find(id);
             if (item == null)
@@ -43,7 +43,7 @@ namespace TodoApi.Controllers
             return item;
         }
         [HttpPost]
-        public IActionResult Create(DimensaoDto item)
+        public IActionResult Create(Dimensao item)
         {
             _context.Dimensoes.Add(item);
             _context.SaveChanges();
@@ -51,7 +51,7 @@ namespace TodoApi.Controllers
             return CreatedAtRoute("GetDimensoes", new { id = item.Id }, item);
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, DimensaoDto item)
+        public IActionResult Update(int id, Dimensao item)
         {
             var todo = _context.Dimensoes.Find(id);
             if (todo == null)

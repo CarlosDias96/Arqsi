@@ -49,6 +49,11 @@ namespace ArqsiArmario.Repository
             return context.Categorias.Find(CategoriaId);
         }
 
+        public Categoria GetCategoriaByID(int? CategoriaId)
+        {
+            return context.Categorias.Find(CategoriaId);
+        }
+
         public IEnumerable<Categoria> GetCategorias()
         {
             return context.Categorias;
