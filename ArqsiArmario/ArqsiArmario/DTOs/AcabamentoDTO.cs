@@ -3,8 +3,12 @@ namespace ArqsiArmario.DTOs
 {
     public class AcabamentoDto
     {
+        public AcabamentoDto() { };
+        public AcabamentoDto(string Nome)
+        {
 
-        public string NomeDto { get; set; }
+        }
+        public string Nome { get; set; }
 
     }
 }

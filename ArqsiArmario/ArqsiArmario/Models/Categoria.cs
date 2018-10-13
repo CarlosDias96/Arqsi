@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using ArqsiArmario.DTOs;
 
 namespace ArqsiArmario.Models
 {
     public class Categoria
     {
-        public Categoria(string nome,Categoria CategoriaPai)
+        public Categoria(string Nome,string Descricao, bool Composto, Categoria CategoriaPai, ICollection<Categoria> SubCategorias)
         {
             this.Nome = Nome;
             this.CategoriaPai = CategoriaPai;
+            this.Descricao = Descricao;
+            this.Composto = Composto;
+            this.CategoriaPai = CategoriaPai;
+            this.SubCategorias = SubCategorias;
         }
         public Categoria() { }
         public int Id { get; set; }
@@ -19,6 +24,21 @@ namespace ArqsiArmario.Models
         public int? CategoriaId { get; set; }
         public ICollection<Categoria> SubCategorias { get; set; }
 
-   
+        public CategoriaDto toDTO()
+        {
+            CategoriaDto categoriaDto = new CategoriaDto(this.Nome,this.Descricao,this.Composto,this.CategoriaPai,this.SubCategorias);
+            return categoriaDto;
+        }
+        public static Categoria fromDTO(CategoriaDto categoriaDto)
+        {
+            Categoria categoria = new Categoria(categoriaDto.Nome,categoriaDto.Descricao,categoriaDto.Composto,categoriaDto.CategoriaPai,categoriaDto.SubCategorias);
+            return categoria;
+        }
+        public override bool Equals(object obj)
+        {
+            var acabamento = obj as Categoria;
+            return acabamento != null && this.Id == acabamento.Id && EqualityComparer<string>.Default.Equals(Nome, acabamento.Nome);
+        }
+
     }
 }

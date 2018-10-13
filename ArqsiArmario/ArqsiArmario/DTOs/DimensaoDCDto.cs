@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArqsiArmario.Models;
 
 namespace ArqsiArmario.DTOs
 {
     public class DimensaoDCDto
     {
-
-        public List<ValorDto> ListaDiscretaDto { get; set; }
-        public float AlturaMinDto { get; set; }
-        public float AlturaMaxDto { get; set; }
+        public DimensaoDCDto() { }
+        public DimensaoDCDto(float AlturaMin, float AlturaMax, ICollection<Valor> ListaDiscreta)
+        {
+            this.ListaDiscreta = ListaDiscreta;
+            this.AlturaMin = AlturaMin;
+            this.AlturaMax = AlturaMax;
+        }
+        public ICollection<Valor> ListaDiscreta{ get; set; }
+        public float AlturaMin { get; set; }
+        public float AlturaMax { get; set; }
     }
 }

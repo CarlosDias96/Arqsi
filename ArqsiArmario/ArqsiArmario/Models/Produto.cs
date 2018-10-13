@@ -15,13 +15,17 @@ namespace ArqsiArmario.Models
         public int? CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
 
+        public int? DimensaoId { get; set; }
+        public Dimensao Dimensao { get; set; }
+
         public Produto() { }
-        public Produto(string Nome,List<Produto> Produtos, Material Material, Categoria Categoria)
+        public Produto(string Nome,List<Produto> Produtos, Material Material, Categoria Categoria,Dimensao Dimensao)
         {
             this.Nome = Nome;
             this.Produtos = Produtos;
             this.Material = Material;
             this.Categoria = Categoria;
+            this.Dimensao = Dimensao;
         }
 
 
