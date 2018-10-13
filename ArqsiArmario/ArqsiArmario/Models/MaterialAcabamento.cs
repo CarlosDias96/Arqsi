@@ -18,6 +18,6 @@ namespace ArqsiArmario.Models
         public Material Material { get; set; }
 
         public int? AcabamentoId { get; set; }
-        public Acabamento Acabamento{ get;set }
+        public Acabamento Acabamento{ get; set; }
     }
 }

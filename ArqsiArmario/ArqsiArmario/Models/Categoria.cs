@@ -22,6 +22,8 @@ namespace ArqsiArmario.Models
         public string Descricao { get; set; }
         public virtual Categoria CategoriaPai { get; set; }
         public int? CategoriaId { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public ICollection<int?> SubCategoriasId { get; set; }
         public ICollection<Categoria> SubCategorias { get; set; }
 

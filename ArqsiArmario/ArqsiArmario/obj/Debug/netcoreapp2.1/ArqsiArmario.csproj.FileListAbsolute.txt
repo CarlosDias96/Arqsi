@@ -1,0 +1,14 @@
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.csprojAssemblyReference.cache
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.csproj.CoreCompileInputs.cache
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorAssemblyInfo.cache
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorAssemblyInfo.cs
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.AssemblyInfoInputs.cache
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.AssemblyInfo.cs
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.deps.json
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.runtimeconfig.json
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.runtimeconfig.dev.json
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.dll
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\bin\Debug\netcoreapp2.1\ArqsiArmario.pdb
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.RazorTargetAssemblyInfo.cache
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.dll
+D:\diogo\Documents\Docs\ISEP\3 ANO\ARQSI\Projeto\ArqsiArmario\ArqsiArmario\obj\Debug\netcoreapp2.1\ArqsiArmario.pdb

@@ -7,6 +7,8 @@ namespace ArqsiArmario.Models
         public int Id { get; set; }
         public bool Composto { get; set; }
         public string Nome { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public ICollection<int?> ProdutosId { get; set; }
         public ICollection<Produto> Produtos { get; set;}
 
