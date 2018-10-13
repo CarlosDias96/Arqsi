@@ -28,11 +28,11 @@ namespace ArqsiArmario.Models
                 .WithMany(c => c.Materiais)
                 .HasForeignKey(bc => bc.AcabamentoId);
         }*/
-        public DbSet<AcabamentoDto> Acabamentos { get; set; }
-        public DbSet<CategoriaDto> Categorias { get; set; }
-        public DbSet<DimensaoDto> Dimensoes { get; set; }
-        public DbSet<MaterialDto> Materiais { get; set; }
-        public DbSet<DTOs.ProdutoDto> Produtos { get; set; }
+        public DbSet<Acabamento> Acabamentos { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Dimensao> Dimensoes { get; set; }
+        public DbSet<Material> Materiais { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
         
 
     }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ArqsiArmario.Models;
 using Microsoft.AspNetCore.Http;
+using ArqsiArmario.Repository;
 
 namespace ArqsiArmario
 {
@@ -22,13 +23,19 @@ namespace ArqsiArmario
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IAcabamentoRepository, AcabamentoRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            services.AddScoped<IDimensaoRepository, DimensaoRepository>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
             
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            });                                             
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

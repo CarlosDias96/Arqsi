@@ -5,6 +5,7 @@ using System.Linq;
 using ArqsiArmario.DTOs;
 using ArqsiArmario.Models;
 using System.Threading.Tasks;
+using ArqsiArmario.Repository;
 
 namespace TodoApi.Controllers
 {
@@ -13,6 +14,10 @@ namespace TodoApi.Controllers
     public class ProdutoController : ControllerBase
     {
         private readonly ArqsiContext _context;
+        private CategoriaRepository catrep;
+        private DimensaoRepository dimrep;
+        private MaterialRepository matrep;
+        private ProdutoRepository prorep;
 
         public ProdutoController(ArqsiContext context)
         {
@@ -22,20 +27,25 @@ namespace TodoApi.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Produtos.Add(new ProdutoDto {});
+                _context.Produtos.Add(new Produto {});
                 _context.SaveChanges();
             }
+
+            catrep = new CategoriaRepository(_context);
+            dimrep = new DimensaoRepository(_context);
+            matrep = new MaterialRepository(_context);
+            prorep = new ProdutoRepository(_context);
         }
 
         [HttpGet]
-        public ActionResult<ICollection<ProdutoDto>> GetProdutos()
+        public ActionResult<ICollection<Produto>> GetProdutos()
         {
             return _context.Produtos.ToList(); ;
 
         }
 
         [HttpGet]
-        public ICollection<ProdutoDto> GetProdutosIEnum()
+        public ICollection<Produto> GetProdutosIEnum()
         {
             return _context.Produtos.ToList();
         }
@@ -45,7 +55,7 @@ namespace TodoApi.Controllers
 
 
         [HttpGet("{id}", Name = "GetProdutoById")]
-        public ActionResult<ProdutoDto> GetProdutoById(int id)
+        public ActionResult<Produto> GetProdutoById(int id)
         {
             var item = _context.Produtos.Find(id);
             if (item == null)
@@ -56,7 +66,7 @@ namespace TodoApi.Controllers
         }
 
         [HttpGet("{nome}", Name = "GetProdutoByName")]
-        public ActionResult<ProdutoDto> GetProdutoByName(String nome)
+        public ActionResult<Produto> GetProdutoByName(String nome)
         {
             var item = _context.Produtos.Find(nome);
             if (item == null)
@@ -67,30 +77,30 @@ namespace TodoApi.Controllers
         }
 
         [HttpGet("{Produtos}", Name = "GetProdutoPartes")]
-        public ActionResult<List<ProdutoDto>> GetProdutoPartes(int id)
+        public ActionResult<List<Produto>> GetProdutoPartes(int id)
         {
             var item = _context.Produtos.Find(id);
             if (item == null)
             {
                 return NotFound();
             }
-            List<ProdutoDto> P = (List<ProdutoDto>) item.Produtos;
+            List<Produto> P = (List<Produto>) item.Produtos;
             return P;
         }
 
         [HttpGet("{Produtos}", Name = "GetProdutoParteEM")]
-        public ICollection<ProdutoDto> GetProdutosPai(int id)
+        public ICollection<Produto> GetProdutosPai(int id)
         {
             var item = _context.Produtos.Find(id);
             if (item == null)
             {
                 return null;
             }
-            ICollection<ProdutoDto> resultado = new List<ProdutoDto>();
+            ICollection<Produto> resultado = new List<Produto>();
             
-            foreach (ProdutoDto P in GetProdutosIEnum())
+            foreach (Produto P in GetProdutosIEnum())
             {
-                foreach (ProdutoDto P1 in P)
+                foreach (Produto P1 in P.Produtos)
                 {
                     if (P1.Id == item.Id)
                     {
@@ -105,7 +115,7 @@ namespace TodoApi.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(ProdutoDto item)
+        public IActionResult Create(Produto item)
         {
             _context.Produtos.Add(item);
             _context.SaveChanges();
@@ -129,18 +139,18 @@ namespace TodoApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var auxCategoria = CategoriaRepository.GetCategoriaByID(Produto.CategoriaId);
-            Produto.Categoria = auxCategoria;
-            var auxDimensao = DimensaoRepository.GetDimensoesByID(Produto.DimensaoId);
+            Produto.Categoria = catrep.GetCategoriaByID(Produto.CategoriaId);
+             
+            var auxDimensao = dimrep.GetDimensoesByID(Produto.DimensaoId);
             Produto.Dimensao = auxDimensao;
-            var auxMaterial = MaterialRepository.GetMaterialByID(Produto.MaterialId);
+            var auxMaterial = matrep.GetMaterialByID(Produto.MaterialId);
             Produto.Material = auxMaterial;
             foreach (int id in Produto.ProdutosId)
             {
-                var aux = ProdutoRepository.GetProdutoByID(id);
-                aux.Categoria = CategoriaRepository.GetCategoriaByID(aux.CategoriaId);
-                aux.Dimensoes = DimensaoRepository.GetDimensoesByID(aux.DimensoesId);
-                aux.Material = MaterialRepository.GetMaterialByID(aux.MaterialId);
+                var aux = prorep.GetProdutoByID(id);
+                aux.Categoria = catrep.GetCategoriaByID(aux.CategoriaId);
+                aux.Dimensao = dimrep.GetDimensoesByID(aux.DimensaoId);
+                aux.Material = matrep.GetMaterialByID(aux.MaterialId);
                 Produto.Produtos.Add(aux);
 
             }
@@ -149,8 +159,8 @@ namespace TodoApi.Controllers
 
             if (auxB == true)
             {
-                ProdutoRepository.InsertProduto(Produto);
-                ProdutoRepository.Save();
+                prorep.InsertProduto(Produto);
+                prorep.Save();
 
             }
             else
@@ -181,7 +191,7 @@ namespace TodoApi.Controllers
             return auxB;
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, ProdutoDto item)
+        public IActionResult Update(int id, Produto item)
         {
             var todo = _context.Produtos.Find(id);
             if (todo == null)
