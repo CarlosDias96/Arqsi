@@ -7,11 +7,16 @@ namespace ArqsiArmario.DTOs
 {
     public class DimensaoDto
     {
-
-        public DimensaoDCDto AlturaDto { get; set; }
-        public DimensaoDCDto ProfundidadeDto { get; set; }
-        public DimensaoDCDto LarguraDto { get; set; }
+        public int Id { get; set; }
+        public DimensaoDCDto Altura { get; set; }
+        public DimensaoDCDto Profundidade { get; set; }
+        public DimensaoDCDto Largura { get; set; }
         public DimensaoDto() { }
-        
+        public DimensaoDto(DimensaoDCDto Altura, DimensaoDCDto Profundidade, DimensaoDCDto Largura)
+        {
+            this.Altura = Altura;
+            this.Profundidade = Profundidade;
+            this.Largura = Largura;
+        }
     }
 }

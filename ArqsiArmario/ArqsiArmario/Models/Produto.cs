@@ -7,6 +7,7 @@ namespace ArqsiArmario.Models
         public int Id { get; set; }
         public bool Composto { get; set; }
         public string Nome { get; set; }
+        public ICollection<int?> ProdutosId { get; set; }
         public ICollection<Produto> Produtos { get; set;}
 
         public Material Material { get; set; }
@@ -19,7 +20,7 @@ namespace ArqsiArmario.Models
         public Dimensao Dimensao { get; set; }
 
         public Produto() { }
-        public Produto(string Nome,List<Produto> Produtos, Material Material, Categoria Categoria,Dimensao Dimensao)
+        public Produto(string Nome,ICollection<Produto> Produtos, Material Material, Categoria Categoria,Dimensao Dimensao)
         {
             this.Nome = Nome;
             this.Produtos = Produtos;

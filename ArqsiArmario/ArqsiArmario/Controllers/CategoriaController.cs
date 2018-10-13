@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ArqsiArmario.Models;
+using ArqsiArmario.DTOs;
 
 namespace TodoApi.Controllers
 {
@@ -20,19 +21,19 @@ namespace TodoApi.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Categorias.Add(new Categoria {});
+                _context.Categorias.Add(new CategoriaDto {});
                 _context.SaveChanges();
             }
         }
 
         [HttpGet]
-        public ActionResult<List<Categoria>> GetCategorias()
+        public ActionResult<List<CategoriaDto>> GetCategorias()
         {
             return _context.Categorias.ToList();
         }
 
         [HttpGet("{id}", Name = "GetCategoria")]
-        public ActionResult<Categoria> GetCategoriaById(int id)
+        public ActionResult<CategoriaDto> GetCategoriaById(int id)
         {
             var item = _context.Categorias.Find(id);
             if (item == null)
@@ -42,7 +43,7 @@ namespace TodoApi.Controllers
             return item;
         }
         [HttpPost]
-        public IActionResult Create(Categoria item)
+        public IActionResult Create(CategoriaDto item)
         {
             _context.Categorias.Add(item);
             _context.SaveChanges();
@@ -50,7 +51,7 @@ namespace TodoApi.Controllers
             return CreatedAtRoute("GetCategorias", new { id = item.Id }, item);
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Categoria item)
+        public IActionResult Update(int id, CategoriaDto item)
         {
             var todo = _context.Categorias.Find(id);
             if (todo == null)

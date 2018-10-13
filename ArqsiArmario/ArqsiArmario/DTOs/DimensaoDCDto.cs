@@ -15,6 +15,7 @@ namespace ArqsiArmario.DTOs
             this.AlturaMin = AlturaMin;
             this.AlturaMax = AlturaMax;
         }
+        public int Id { get; set; }
         public ICollection<Valor> ListaDiscreta{ get; set; }
         public float AlturaMin { get; set; }
         public float AlturaMax { get; set; }

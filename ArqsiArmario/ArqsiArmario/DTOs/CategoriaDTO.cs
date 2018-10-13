@@ -6,7 +6,7 @@ namespace ArqsiArmario.DTOs
     public class CategoriaDto
     {
         public CategoriaDto() { }
-        public CategoriaDto(string Nome, string Descricao, bool Composto, Categoria CategoriaPai, ICollection<Categoria> SubCategorias)
+        public CategoriaDto(string Nome, string Descricao, bool Composto, CategoriaDto CategoriaPai, ICollection<CategoriaDto> SubCategorias)
         {
             this.Nome = Nome;
             this.Descricao = Descricao;
@@ -14,11 +14,12 @@ namespace ArqsiArmario.DTOs
             this.CategoriaPai = CategoriaPai;
             this.SubCategorias = SubCategorias;
         }
+        public int Id { get; set; }
         public string Nome { get; set; }
         public bool Composto { get; set; }
         public string Descricao { get; set; }
-        public virtual Categoria CategoriaPai { get; set; }
+        public virtual CategoriaDto CategoriaPai { get; set; }
         public int? CategoriaId { get; set; }
-        public ICollection<Categoria> SubCategorias { get; set; }
+        public ICollection<CategoriaDto> SubCategorias { get; set; }
     }
 }

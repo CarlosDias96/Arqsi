@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using ArqsiArmario.DTOs;
 using ArqsiArmario.Models;
+using System.Threading.Tasks;
 
 namespace TodoApi.Controllers
 {
@@ -20,20 +22,20 @@ namespace TodoApi.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Produtos.Add(new Produto { Nome = "Item1" });
+                _context.Produtos.Add(new ProdutoDto {});
                 _context.SaveChanges();
             }
         }
 
         [HttpGet]
-        public ActionResult<List<Produto>> GetProdutos()
+        public ActionResult<ICollection<ProdutoDto>> GetProdutos()
         {
-            return _context.Produtos.ToList();
+            return _context.Produtos.ToList(); ;
 
         }
 
         [HttpGet]
-        public IEnumerable<Produto> GetProdutosIEnum()
+        public ICollection<ProdutoDto> GetProdutosIEnum()
         {
             return _context.Produtos.ToList();
         }
@@ -43,7 +45,7 @@ namespace TodoApi.Controllers
 
 
         [HttpGet("{id}", Name = "GetProdutoById")]
-        public ActionResult<Produto> GetProdutoById(int id)
+        public ActionResult<ProdutoDto> GetProdutoById(int id)
         {
             var item = _context.Produtos.Find(id);
             if (item == null)
@@ -54,7 +56,7 @@ namespace TodoApi.Controllers
         }
 
         [HttpGet("{nome}", Name = "GetProdutoByName")]
-        public ActionResult<Produto> GetProdutoByName(String nome)
+        public ActionResult<ProdutoDto> GetProdutoByName(String nome)
         {
             var item = _context.Produtos.Find(nome);
             if (item == null)
@@ -64,68 +66,35 @@ namespace TodoApi.Controllers
             return item;
         }
 
-        [HttpGet("{Produtos}", Name = "GetProdutoParts")]
-        public ActionResult<List<Produto>> GetProdutoParts(int id)
+        [HttpGet("{Produtos}", Name = "GetProdutoPartes")]
+        public ActionResult<List<ProdutoDto>> GetProdutoPartes(int id)
         {
             var item = _context.Produtos.Find(id);
             if (item == null)
             {
                 return NotFound();
             }
-            List<Produto> P = (List<Produto>) item.Produtos;
+            List<ProdutoDto> P = (List<ProdutoDto>) item.Produtos;
             return P;
         }
 
-        //[HttpGet("{Produtos}", Name = "GetProdutoParteEM")]
-        //public ActionResult<List<Produto>> GetProdutosPai(int id)
-        //{
-        //    var item = _context.Produtos.Find(id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ActionResult<List<Produto>> resultado;
-        //    //ActionResult<List<Produto>> todos = GetProdutos();
-        //    //foreach (ActionResult<List<Produto>> A in todos)
-        //    //{
-
-        //    //}
-
-
-        //    //IEnumerable<List<Produto>> copia = GetProdutos();
-        //    foreach (ActionResult<List<Produto>> P in (IEnumerable<List<Produto>>)todos)
-        //    {
-        //        foreach (Produto P1 in P.getProdutos())
-        //        {
-        //            if (P1.getId() == item.getId())
-        //            {
-        //                resultado.add(P);
-        //            }
-        //        }
-        //    }
-
-        //    return resultado;
-        //}
-
         [HttpGet("{Produtos}", Name = "GetProdutoParteEM")]
-        public ActionResult<List<Produto>> GetProdutosPai(int id)
+        public ICollection<ProdutoDto> GetProdutosPai(int id)
         {
             var item = _context.Produtos.Find(id);
             if (item == null)
             {
-                return NotFound();
+                return null;
             }
-            List<Produto> resultado = null;
-            IEnumerable<Produto> todos = GetProdutosIEnum();
-
-
-            foreach (IEnumerable<Produto> P in todos)
+            ICollection<ProdutoDto> resultado = new List<ProdutoDto>();
+            
+            foreach (ProdutoDto P in GetProdutosIEnum())
             {
-                foreach (Produto P1 in P)
+                foreach (ProdutoDto P1 in P)
                 {
                     if (P1.Id == item.Id)
                     {
-                        //resultado.Add(P);  ainda sem solução
+                       resultado.Add(P);
                     }
                 }
             }
@@ -136,7 +105,7 @@ namespace TodoApi.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(Produto item)
+        public IActionResult Create(ProdutoDto item)
         {
             _context.Produtos.Add(item);
             _context.SaveChanges();
@@ -151,8 +120,68 @@ namespace TodoApi.Controllers
                 categoriaID = item.Categoria
             }, item);
         }
+        // POST: api/Produtos
+        [HttpPost]
+        public async Task<IActionResult> PostProduto([FromBody] Produto Produto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var auxCategoria = CategoriaRepository.GetCategoriaByID(Produto.CategoriaId);
+            Produto.Categoria = auxCategoria;
+            var auxDimensao = DimensaoRepository.GetDimensoesByID(Produto.DimensaoId);
+            Produto.Dimensao = auxDimensao;
+            var auxMaterial = MaterialRepository.GetMaterialByID(Produto.MaterialId);
+            Produto.Material = auxMaterial;
+            foreach (int id in Produto.ProdutosId)
+            {
+                var aux = ProdutoRepository.GetProdutoByID(id);
+                aux.Categoria = CategoriaRepository.GetCategoriaByID(aux.CategoriaId);
+                aux.Dimensoes = DimensaoRepository.GetDimensoesByID(aux.DimensoesId);
+                aux.Material = MaterialRepository.GetMaterialByID(aux.MaterialId);
+                Produto.Produtos.Add(aux);
+
+            }
+
+            bool auxB = caber(Produto);
+
+            if (auxB == true)
+            {
+                ProdutoRepository.InsertProduto(Produto);
+                ProdutoRepository.Save();
+
+            }
+            else
+            {
+
+                return Content("Não Cabe!!");
+            }
+
+
+
+
+            return CreatedAtAction("GetProduto", new { id = Produto.Id }, Produto);
+        }
+        private bool caber(Produto Produto)
+        {
+            bool auxB = true;
+            foreach (Produto aux in Produto.Produtos)
+            {
+                if (aux.Dimensao.Altura.AlturaMin <= Produto.Dimensao.Altura.AlturaMin && aux.Dimensao.Largura.AlturaMin <= Produto.Dimensao.Largura.AlturaMin)
+                {
+                    auxB = true;
+                }
+                else
+                {
+                    auxB = false;
+                }
+            }
+            return auxB;
+        }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Produto item)
+        public IActionResult Update(int id, ProdutoDto item)
         {
             var todo = _context.Produtos.Find(id);
             if (todo == null)
@@ -163,7 +192,6 @@ namespace TodoApi.Controllers
             todo.Nome = item.Nome;
             todo.Material = item.Material;
             todo.Categoria = item.Categoria;
-            todo.CategoriaId = item.CategoriaId;
             todo.Produtos = item.Produtos;
 
             _context.Produtos.Update(todo);

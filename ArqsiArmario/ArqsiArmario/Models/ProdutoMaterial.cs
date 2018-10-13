@@ -7,7 +7,7 @@ namespace ArqsiArmario.Models
 {
     public class ProdutoMaterial
     {
-        public ProdutoMaterial(Produto Produto, Material Material)
+        public ProdutoMaterial(ProdutoDto Produto, Material Material)
         {
             this.Produto = Produto;
             this.Material = Material;
@@ -15,7 +15,7 @@ namespace ArqsiArmario.Models
         public ProdutoMaterial() { }
 
         public int? ProdutoId { get; set; }
-        public Produto Produto { get; set; }
+        public ProdutoDto Produto { get; set; }
 
         public int? MaterialId { get; set; }
         public Material Material { get; set; }

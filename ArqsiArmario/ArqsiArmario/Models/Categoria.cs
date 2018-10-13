@@ -22,16 +22,27 @@ namespace ArqsiArmario.Models
         public string Descricao { get; set; }
         public virtual Categoria CategoriaPai { get; set; }
         public int? CategoriaId { get; set; }
+        public ICollection<int?> SubCategoriasId { get; set; }
         public ICollection<Categoria> SubCategorias { get; set; }
 
         public CategoriaDto toDTO()
         {
-            CategoriaDto categoriaDto = new CategoriaDto(this.Nome,this.Descricao,this.Composto,this.CategoriaPai,this.SubCategorias);
+            List<CategoriaDto> CategoriasSub = new List<CategoriaDto>(); 
+            foreach(Categoria c in this.SubCategorias)
+            {
+                CategoriasSub.Add(c.toDTO());
+            }
+            CategoriaDto categoriaDto = new CategoriaDto(this.Nome,this.Descricao,this.Composto,this.CategoriaPai.toDTO(),CategoriasSub);
             return categoriaDto;
         }
         public static Categoria fromDTO(CategoriaDto categoriaDto)
         {
-            Categoria categoria = new Categoria(categoriaDto.Nome,categoriaDto.Descricao,categoriaDto.Composto,categoriaDto.CategoriaPai,categoriaDto.SubCategorias);
+            List<Categoria> CategoriasSub = new List<Categoria>();
+            foreach(CategoriaDto c in categoriaDto.SubCategorias)
+            {
+                CategoriasSub.Add(Categoria.fromDTO(c));
+            }
+            Categoria categoria = new Categoria(categoriaDto.Nome,categoriaDto.Descricao,categoriaDto.Composto,Categoria.fromDTO(categoriaDto.CategoriaPai),CategoriasSub);
             return categoria;
         }
         public override bool Equals(object obj)

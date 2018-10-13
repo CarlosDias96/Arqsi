@@ -7,7 +7,7 @@ namespace ArqsiArmario.DTOs
 {
     public class ValorDto
     {
-
+        public int Id { get; set; }
         public int ValorDiscreto { get; set; }
     }
 }
