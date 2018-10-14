@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ArqsiArmario.Models;
 using ArqsiArmario.DTOs;
 using ArqsiArmario.Repository;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoApi.Controllers
 {
@@ -12,76 +13,124 @@ namespace TodoApi.Controllers
     [ApiController]
     public class AcabamentoController : ControllerBase
     {
-        private readonly ArqsiContext _context;
-        private AcabamentoRepository repacabamento;
+      
+        private IAcabamentoRepository repacabamento;
 
-        public AcabamentoController(ArqsiContext context)
+        public AcabamentoController(IAcabamentoRepository acabamentoRepository)
         {
-
-            _context = context; 
-            if (_context.Acabamentos.Count() == 0)
-            {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.Acabamentos.Add(new Acabamento {});
-                _context.SaveChanges();
-            }
-
-
-            this.repacabamento = new AcabamentoRepository(_context);
+            this.repacabamento = acabamentoRepository;
         }
 
         [HttpGet]
-        public ActionResult<List<Acabamento>> GetAcabamentos()
+        public IEnumerable<AcabamentoDto> GetAcabamentos()
         {
-            return _context.Acabamentos.ToList();
+            IEnumerable<AcabamentoDto> ListaAcabamentosDTO = Enumerable.Empty<AcabamentoDto>();
+            AcabamentoDto aux = new AcabamentoDto();
+            foreach(Acabamento acabamento in repacabamento.GetAcabamentos())
+            {
+                aux = new AcabamentoDto();
+                aux.Nome = acabamento.Nome;
+                ListaAcabamentosDTO = ListaAcabamentosDTO.Concat(new[] { aux });
+            }
+            return ListaAcabamentosDTO;
         }
 
-        [HttpGet("{id}", Name = "GetAcabamento")]
-        public ActionResult<Acabamento> GetAcabamentoById(int id)
+        // GET: api/Acabamentos/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAcabamento([FromRoute] int id)
         {
-            var item = _context.Acabamentos.Find(id);
-            if (item == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var acabamento = repacabamento.GetAcabamentoByID(id);
+
+            if (acabamento == null)
             {
                 return NotFound();
             }
-            return item;
-        }
-        [HttpPost]
-        public IActionResult Create(Acabamento item)
-        {
-            _context.Acabamentos.Add(item);
-            _context.SaveChanges();
 
-            return CreatedAtRoute("GetAcabamento", new { id = item.Id }, item);
+            AcabamentoDto acabamentoDTO = new AcabamentoDto();
+            acabamentoDTO.Nome = acabamento.Nome;
+
+            return Ok(acabamentoDTO);
         }
+
+        // PUT: api/Acabamentos/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Acabamento item)
+        public async Task<IActionResult> PutAcabamento([FromRoute] int id, [FromBody] Acabamento acabamento)
         {
-            var todo = _context.Acabamentos.Find(id);
-            if (todo == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            todo.Nome = item.Nome;
-          
-            _context.Acabamentos.Update(todo);
-            _context.SaveChanges();
+            if (id != acabamento.Id)
+            {
+                return BadRequest();
+            }
+
+            repacabamento.UpdateAcabamento(acabamento);
+
+            try
+            {
+                repacabamento.Save();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AcabamentoExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return NoContent();
         }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+
+        // POST: api/Acabamentos
+        [HttpPost]
+        public async Task<IActionResult> PostAcabamento([FromBody] Acabamento acabamento)
         {
-            var todo = _context.Acabamentos.Find(id);
-            if (todo == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            repacabamento.InsertAcabamento(acabamento);
+            repacabamento.Save();
+
+            return CreatedAtAction("GetAcabamento", new { id = acabamento.Id }, acabamento);
+        }
+
+        // DELETE: api/Acabamentos/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAcabamento([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var acabamento = repacabamento.GetAcabamentoByID(id);
+            if (acabamento == null)
             {
                 return NotFound();
             }
 
-            _context.Acabamentos.Remove(todo);
-            _context.SaveChanges();
-            return NoContent();
+            repacabamento.DeleteAcabamento(id);
+            repacabamento.Save();
+
+            return Ok(acabamento);
+        }
+
+        private bool AcabamentoExists(int id)
+        {
+            return repacabamento.GetAcabamentos().Any(e => e.Id == id);
         }
     }
 }

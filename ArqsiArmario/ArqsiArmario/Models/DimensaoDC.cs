@@ -11,7 +11,6 @@ namespace ArqsiArmario.Models
         public DimensaoDC() { }
         public DimensaoDC(float AlturaMin, float AlturaMax, ICollection<Valor> ListaDiscreta)
         {
-            this.ListaDiscreta = ListaDiscreta;
             this.AlturaMin = AlturaMin;
             this.AlturaMax = AlturaMax;
         }
@@ -19,17 +18,17 @@ namespace ArqsiArmario.Models
         public ICollection<Valor> ListaDiscreta { get; set; }
         public float AlturaMin { get; set; }
         public float AlturaMax { get; set; }
-    }
 
-    /*public DimensaoDCDto toDTO()
-    {
-        DimensaoDCDto dimensaoDCDto = new DimensaoDCDto(this.AlturaMin, this.AlturaMax, this.ListaDiscreta,);
-        return dimensaoDCDto;
+
+        public DimensaoDCDto toDTO()
+        {
+            DimensaoDCDto dimensaoDCDto = new DimensaoDCDto(this.AlturaMin, this.AlturaMax, this.ListaDiscreta);
+            return dimensaoDCDto;
+        }
+        public static DimensaoDC fromDTO(DimensaoDCDto dimensaoDCDto)
+        {
+            DimensaoDC dimensaodc = new DimensaoDC(dimensaoDCDto.AlturaMin, dimensaoDCDto.AlturaMax, dimensaoDCDto.ListaDiscreta);
+            return dimensaodc;
+        }
     }
-    public static DimensaoDC fromDTO(DimensaoDCDto dimensaoDCDto)
-    {
-        DimensaoDC dimensaodc = new DimensaoDC(dimensaoDCDto.AlturaMin,dimensaoDCDto.AlturaMax, dimensaoDCDto.ListaDiscreta);
-        return dimensaodc;
-    }
-   */
 }

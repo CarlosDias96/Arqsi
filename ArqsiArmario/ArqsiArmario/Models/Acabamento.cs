@@ -10,7 +10,11 @@ namespace ArqsiArmario.Models
 
         public int Id { get; set; }
         public string Nome { get; set; }
-        
+
+       public ICollection<MaterialAcabamento> MaterialAcabamentos { get; set; }
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+      public  ICollection<int?> MaterialAcabamentosId { get; set; }
+
         public Acabamento(string Nome) { this.Nome = Nome; }
         public Acabamento()
         {

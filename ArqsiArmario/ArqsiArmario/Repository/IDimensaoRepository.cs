@@ -6,7 +6,7 @@ using ArqsiArmario.Models;
 
 namespace ArqsiArmario.Repository
 {
-    interface IDimensaoRepository
+    public interface IDimensaoRepository : IDisposable
     {
         IEnumerable<Dimensao> GetDimensao();
         Dimensao GetDimensoesByID(int DimensaoId);

@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ArqsiArmario.Models;
 using ArqsiArmario.DTOs;
+using ArqsiArmario.Repository;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoApi.Controllers
 {
@@ -11,74 +13,124 @@ namespace TodoApi.Controllers
     [ApiController]
     public class CategoriaController : ControllerBase
     {
-        private readonly ArqsiContext _context;
+        private ICategoriaRepository repcategoria;
 
-        public CategoriaController(ArqsiContext context)
+        public CategoriaController(ICategoriaRepository categoriaRepository)
         {
-            _context = context;
-
-            if (_context.Categorias.Count() == 0)
-            {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.Categorias.Add(new Categoria {});
-                _context.SaveChanges();
-            }
+            this.repcategoria = categoriaRepository;
         }
 
         [HttpGet]
-        public ActionResult<List<Categoria>> GetCategorias()
+        public IEnumerable<CategoriaDto> GetCategorias()
         {
-            return _context.Categorias.ToList();
+            IEnumerable<CategoriaDto> ListaCategoriasDto = Enumerable.Empty<CategoriaDto>();
+            CategoriaDto aux = new CategoriaDto();
+            foreach (Categoria categoria in repcategoria.GetCategorias())
+            {
+                aux = new CategoriaDto();
+                aux.Nome = categoria.Nome;
+                ListaCategoriasDto = ListaCategoriasDto.Concat(new[] { aux });
+            }
+            return ListaCategoriasDto;
         }
 
         [HttpGet("{id}", Name = "GetCategoria")]
-        public ActionResult<Categoria> GetCategoriaById(int id)
+        public async Task<IActionResult> GetCategoriaById([FromRoute] int id)
         {
-            var item = _context.Categorias.Find(id);
-            if (item == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var categoria = repcategoria.GetCategoriaByID(id);
+
+            if (categoria == null)
             {
                 return NotFound();
             }
-            return item;
-        }
-        [HttpPost]
-        public IActionResult Create(Categoria item)
-        {
-            _context.Categorias.Add(item);
-            _context.SaveChanges();
 
-            return CreatedAtRoute("GetCategorias", new { id = item.Id }, item);
+            CategoriaDto categoriaDto = new CategoriaDto();
+            categoriaDto.Nome = categoria.Nome;
+
+            return Ok(categoriaDto);
         }
+
+        // PUT: api/Categoria/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Categoria item)
+        public async Task<IActionResult> PutCategoria([FromRoute] int id, [FromBody] Categoria categoria)
         {
-            var todo = _context.Categorias.Find(id);
-            if (todo == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            todo.Nome = item.Nome;
-           
+            if (id != categoria.Id)
+            {
+                return BadRequest();
+            }
 
-            _context.Categorias.Update(todo);
-            _context.SaveChanges();
+            repcategoria.UpdateCategoria(categoria);
+
+            try
+            {
+                repcategoria.Save();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CategoriaExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return NoContent();
         }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+
+        // POST: api/Categoria
+        [HttpPost]
+        public async Task<IActionResult> PostCategoria([FromBody] Categoria categoria)
         {
-            var todo = _context.Categorias.Find(id);
-            if (todo == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            repcategoria.InsertCategoria(categoria);
+            repcategoria.Save();
+
+            return CreatedAtAction("GetCategoria", new { id = categoria.Id }, categoria);
+
+        }
+        // DELETE: api/Categoria/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategoria([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var categoria = repcategoria.GetCategoriaByID(id);
+            if (categoria == null)
             {
                 return NotFound();
             }
 
-            _context.Categorias.Remove(todo);
-            _context.SaveChanges();
-            return NoContent();
+            repcategoria.DeleteCategoria(id);
+            repcategoria.Save();
+
+            return Ok(categoria);
+        }
+
+        private bool CategoriaExists(int id)
+        {
+            return repcategoria.GetCategorias().Any(e => e.Id == id);
         }
     }
 }
+
 

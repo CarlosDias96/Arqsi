@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ArqsiArmario.Models;
 using ArqsiArmario.DTOs;
+using ArqsiArmario.Repository;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoApi.Controllers
 {
@@ -11,74 +14,133 @@ namespace TodoApi.Controllers
     [ApiController]
     public class DimensaoController : ControllerBase
     {
-        private readonly ArqsiContext _context;
+        private IDimensaoRepository repdimensao;
 
-        public DimensaoController(ArqsiContext context)
+        public DimensaoController(IDimensaoRepository dimensaoRepository)
         {
-            _context = context;
-
-            if (_context.Dimensoes.Count() == 0)
-            {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.Dimensoes.Add(new Dimensao { });
-                _context.SaveChanges();
-            }
+            this.repdimensao = dimensaoRepository;
         }
 
         [HttpGet]
-        public ActionResult<List<Dimensao>> GetDimensoes()
+        public IEnumerable<DimensaoDto> GetDimensoes()
         {
-            return _context.Dimensoes.ToList();
+            IEnumerable<DimensaoDto> ListaDimensoesDTO = Enumerable.Empty<DimensaoDto>();
+            DimensaoDto aux = new DimensaoDto();
+            foreach (Dimensao dimensao in repdimensao.GetDimensao())
+            {
+                aux = new DimensaoDto();
+                aux.Altura.AlturaMin = dimensao.Altura.AlturaMin;
+                aux.Altura.AlturaMax = dimensao.Altura.AlturaMax;
+                aux.Largura.AlturaMin = dimensao.Largura.AlturaMin;
+                aux.Largura.AlturaMax = dimensao.Largura.AlturaMax;
+                aux.Profundidade.AlturaMin = dimensao.Profundidade.AlturaMin;
+                aux.Profundidade.AlturaMax = dimensao.Profundidade.AlturaMax;
+                ListaDimensoesDTO = ListaDimensoesDTO.Concat(new[] { aux });
+            }
+            return ListaDimensoesDTO;
         }
 
-        [HttpGet("{id}", Name = "GetDimensao")]
-        public ActionResult<Dimensao> GetDimensaoByYd(int id)
+        // GET: api/Dimensao/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDimensao([FromRoute] int id)
         {
-            var item = _context.Dimensoes.Find(id);
-            if (item == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var dimensao = repdimensao.GetDimensoesByID(id);
+
+            if (dimensao == null)
             {
                 return NotFound();
             }
-            return item;
-        }
-        [HttpPost]
-        public IActionResult Create(Dimensao item)
-        {
-            _context.Dimensoes.Add(item);
-            _context.SaveChanges();
 
-            return CreatedAtRoute("GetDimensoes", new { id = item.Id }, item);
+            DimensaoDto dimensaoDto = new DimensaoDto();
+            
+            dimensao.Altura.AlturaMin = dimensaoDto.Altura.AlturaMin;
+            dimensao.Altura.AlturaMax = dimensaoDto.Altura.AlturaMax;
+            dimensao.Largura.AlturaMin = dimensaoDto.Largura.AlturaMin;
+            dimensao.Largura.AlturaMax = dimensaoDto.Largura.AlturaMax;
+            dimensao.Profundidade.AlturaMin = dimensaoDto.Profundidade.AlturaMin;
+            dimensao.Profundidade.AlturaMax = dimensaoDto.Profundidade.AlturaMax;
+            return Ok(dimensaoDto);
         }
+
+        // PUT: api/Dimensao/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Dimensao item)
+        public async Task<IActionResult> PutDimensao([FromRoute] int id, [FromBody] Dimensao dimensao)
         {
-            var todo = _context.Dimensoes.Find(id);
-            if (todo == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            todo.Altura = item.Altura;
-            todo.Largura = item.Largura;
-            todo.Profundidade = item.Profundidade;
+            if (id != dimensao.Id)
+            {
+                return BadRequest();
+            }
 
-            _context.Dimensoes.Update(todo);
-            _context.SaveChanges();
+            repdimensao.UpdateDimensao(dimensao);
+
+            try
+            {
+                repdimensao.Save();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DimensaoExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return NoContent();
         }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+
+        // POST: api/Dimensao
+        [HttpPost]
+        public async Task<IActionResult> PostDimensao([FromBody] Dimensao dimensao)
         {
-            var todo = _context.Dimensoes.Find(id);
-            if (todo == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            repdimensao.InsertDimensao(dimensao);
+            repdimensao.Save();
+
+            return CreatedAtAction("GetDimensao", new { id = dimensao.Id }, dimensao);
+        }
+
+        // DELETE: api/Dimensao/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDimensao([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var dimensao = repdimensao.GetDimensoesByID(id);
+            if (dimensao == null)
             {
                 return NotFound();
             }
 
-            _context.Dimensoes.Remove(todo);
-            _context.SaveChanges();
-            return NoContent();
+            repdimensao.DeleteDimensao(id);
+            repdimensao.Save();
+
+            return Ok(dimensao);
+        }
+
+        private bool DimensaoExists(int id)
+        {
+            return repdimensao.GetDimensao().Any(e => e.Id == id);
         }
     }
 }

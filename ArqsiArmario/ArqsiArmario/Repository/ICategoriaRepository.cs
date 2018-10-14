@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ArqsiArmario.Models;
 
 namespace ArqsiArmario.Repository
 {
-    interface ICategoriaRepository
+    public interface ICategoriaRepository : IDisposable
     {
         IEnumerable<Categoria> GetCategorias();
         Categoria GetCategoriaByID(int CategoriaId);

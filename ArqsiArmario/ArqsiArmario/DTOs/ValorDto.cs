@@ -9,5 +9,10 @@ namespace ArqsiArmario.DTOs
     {
         public int Id { get; set; }
         public int ValorDiscreto { get; set; }
+        public ValorDto() { }
+        public ValorDto(int ValorDiscreto)
+        {
+            this.ValorDiscreto = ValorDiscreto;
+        }
     }
 }

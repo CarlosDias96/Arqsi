@@ -6,10 +6,11 @@ using ArqsiArmario.Models;
 
 namespace ArqsiArmario.Repository
 {
-    interface IProdutoRepository
+    public interface IProdutoRepository : IDisposable
     {
         IEnumerable<Produto> GetProdutos();
         Produto GetProdutoByID(int ProdutoId);
+        Produto GetProdutoByNome(string Nome);
         void InsertProduto(Produto Produto);
         void DeleteProduto(int Produto);
         void UpdateProduto(Produto Produto);

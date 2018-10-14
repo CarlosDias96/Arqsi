@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ArqsiArmario.Models;
 using ArqsiArmario.DTOs;
+using ArqsiArmario.Repository;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoApi.Controllers
 {
@@ -11,74 +14,123 @@ namespace TodoApi.Controllers
     [ApiController]
     public class MaterialController : ControllerBase
     {
-        private readonly ArqsiContext _context;
+        private IMaterialRepository repmaterial;
 
-        public MaterialController(ArqsiContext context)
+        public MaterialController(IMaterialRepository materialRepository)
         {
-            _context = context;
-
-            if (_context.Materiais.Count() == 0)
-            {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.Materiais.Add(new Material {});
-                _context.SaveChanges();
-            }
+            this.repmaterial = materialRepository;
         }
 
         [HttpGet]
-        public ActionResult<List<Material>> GetMateriais()
+        public IEnumerable<MaterialDto> GetMaterials()
         {
-            return _context.Materiais.ToList();
+            IEnumerable<MaterialDto> ListaMateriasDto = Enumerable.Empty<MaterialDto>();
+            MaterialDto aux = new MaterialDto();
+            foreach (Material material in repmaterial.GetMateriais())
+            {
+                aux = new MaterialDto();
+                aux.Nome = material.Nome;
+                ListaMateriasDto = ListaMateriasDto.Concat(new[] { aux });
+            }
+            return ListaMateriasDto;
         }
 
-        [HttpGet("{id}", Name = "GetMaterial")]
-        public ActionResult<Material> GetMaterialById(int id)
+        // GET: api/Material/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMaterial([FromRoute] int id)
         {
-            var item = _context.Materiais.Find(id);
-            if (item == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var material = repmaterial.GetMaterialByID(id);
+
+            if (material == null)
             {
                 return NotFound();
             }
-            return item;
-        }
-        [HttpPost]
-        public IActionResult Create(Material item)
-        {
-            _context.Materiais.Add(item);
-            _context.SaveChanges();
 
-            return CreatedAtRoute("GetMaterial", new { id = item.Id }, item);
+            MaterialDto materialDto = new MaterialDto();
+            materialDto.Nome = material.Nome;
+
+            return Ok(materialDto);
         }
+
+        // PUT: api/Material/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Material item)
+        public async Task<IActionResult> PutMaterial([FromRoute] int id, [FromBody] Material material)
         {
-            var todo = _context.Materiais.Find(id);
-            if (todo == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            todo.Nome = item.Nome;
-            todo.Acabamentos = item.Acabamentos;
-            todo.AcabamentoId = item.AcabamentoId;
+            if (id != material.Id)
+            {
+                return BadRequest();
+            }
 
-            _context.Materiais.Update(todo);
-            _context.SaveChanges();
+            repmaterial.UpdateMaterial(material);
+
+            try
+            {
+                repmaterial.Save();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MaterialExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return NoContent();
         }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+
+        // POST: api/Material
+        [HttpPost]
+        public async Task<IActionResult> PostMaterial([FromBody] Material material)
         {
-            var todo = _context.Materiais.Find(id);
-            if (todo == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            repmaterial.InsertMaterial(material);
+            repmaterial.Save();
+
+            return CreatedAtAction("GetMaterial", new { id = material.Id }, material);
+        }
+
+        // DELETE: api/Material/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMaterial([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var material = repmaterial.GetMaterialByID(id);
+            if (material == null)
             {
                 return NotFound();
             }
 
-            _context.Materiais.Remove(todo);
-            _context.SaveChanges();
-            return NoContent();
+            repmaterial.DeleteMaterial(id);
+            repmaterial.Save();
+
+            return Ok(material);
+        }
+
+        private bool MaterialExists(int id)
+        {
+            return repmaterial.GetMateriais().Any(e => e.Id == id);
         }
     }
 }

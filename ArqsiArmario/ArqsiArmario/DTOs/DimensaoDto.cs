@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ArqsiArmario.DTOs
+﻿namespace ArqsiArmario.DTOs
 {
     public class DimensaoDto
     {

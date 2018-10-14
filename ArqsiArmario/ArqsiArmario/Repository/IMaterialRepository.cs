@@ -6,7 +6,7 @@ using ArqsiArmario.Models;
 
 namespace ArqsiArmario.Repository
 {
-    interface IMaterialRepository
+    public interface IMaterialRepository : IDisposable
     {
 
         IEnumerable<Material> GetMateriais();

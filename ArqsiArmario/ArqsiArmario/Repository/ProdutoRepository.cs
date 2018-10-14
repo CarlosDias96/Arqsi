@@ -47,7 +47,11 @@ namespace ArqsiArmario.Repository
             Produto pro = context.Produtos.Find(ProdutoId);
             return context.Produtos.Find(pro);
         }
-
+        public Produto GetProdutoByNome(string Nome)
+        {
+            Produto pro = context.Produtos.Find(Nome);
+            return context.Produtos.Find(pro);
+        }
         public IEnumerable<Produto> GetProdutos()
         {
             return context.Produtos;

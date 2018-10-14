@@ -6,6 +6,7 @@ using ArqsiArmario.DTOs;
 using ArqsiArmario.Models;
 using System.Threading.Tasks;
 using ArqsiArmario.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoApi.Controllers
 {
@@ -13,96 +14,143 @@ namespace TodoApi.Controllers
     [ApiController]
     public class ProdutoController : ControllerBase
     {
-        private readonly ArqsiContext _context;
-        private CategoriaRepository catrep;
-        private DimensaoRepository dimrep;
-        private MaterialRepository matrep;
-        private ProdutoRepository prorep;
+    
+        private ICategoriaRepository repCategoria;
+        private IDimensaoRepository repDimensao;
+        private IProdutoMaterialRepository repMaterial;
+        private IProdutoRepository repProduto;
 
-        public ProdutoController(ArqsiContext context)
+        public ProdutoController(IProdutoRepository produtoRepository)
         {
-            _context = context;
+            this.repProduto = produtoRepository;
+        }
 
-            if (_context.Produtos.Count() == 0)
+        [HttpGet]
+        public IEnumerable<ProdutoDto> GetProdutos()
+        {
+            IEnumerable<ProdutoDto> ListaProdutosDTO = Enumerable.Empty<ProdutoDto>();
+            ProdutoDto aux = new ProdutoDto();
+            foreach (Produto produto in repProduto.GetProdutos())
             {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.Produtos.Add(new Produto {});
-                _context.SaveChanges();
+                aux = new ProdutoDto();
+                aux.Nome = produto.Nome;
+                ListaProdutosDTO = ListaProdutosDTO.Concat(new[] { aux });
+            }
+            return ListaProdutosDTO;
+
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduto([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
 
-            catrep = new CategoriaRepository(_context);
-            dimrep = new DimensaoRepository(_context);
-            matrep = new MaterialRepository(_context);
-            prorep = new ProdutoRepository(_context);
-        }
+            var produto = repProduto.GetProdutoByID(id);
 
-        [HttpGet]
-        public ActionResult<ICollection<Produto>> GetProdutos()
-        {
-            return _context.Produtos.ToList(); ;
-
-        }
-
-        [HttpGet]
-        public ICollection<Produto> GetProdutosIEnum()
-        {
-            return _context.Produtos.ToList();
-        }
-
-
-
-
-
-        [HttpGet("{id}", Name = "GetProdutoById")]
-        public ActionResult<Produto> GetProdutoById(int id)
-        {
-            var item = _context.Produtos.Find(id);
-            if (item == null)
+            if (produto == null)
             {
                 return NotFound();
             }
-            return item;
+
+            ProdutoDto produtoDto = new ProdutoDto();
+            produtoDto.Nome = produto.Nome;
+            produtoDto.Categoria = produto.Categoria.toDTO();
+            produtoDto.Composto = produto.Composto;
+            produtoDto.Dimensao = produto.Dimensao.toDTO();
+            List<ProdutoMaterialDto> ListaPm = new List<ProdutoMaterialDto>();
+            foreach (ProdutoMaterial pm in produto.ProdutosMateriais)
+            {
+                ListaPm.Add(pm.toDTO());
+            }
+            List<ProdutoDto> ListaP = new List<ProdutoDto>();
+            foreach(Produto p in produto.Produtos)
+            {
+                ListaP.Add(p.toDTO());
+            }
+            return Ok(produtoDto);
         }
 
         [HttpGet("{nome}", Name = "GetProdutoByName")]
-        public ActionResult<Produto> GetProdutoByName(String nome)
+        public async Task<IActionResult> GetProdutoByName(String nome)
         {
-            var item = _context.Produtos.Find(nome);
-            if (item == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var produto = repProduto.GetProdutoByNome(nome);
+
+            if (produto == null)
             {
                 return NotFound();
             }
-            return item;
+
+            ProdutoDto produtoDto = new ProdutoDto();
+            produtoDto.Nome = produto.Nome;
+            produtoDto.Categoria = produto.Categoria.toDTO();
+            produtoDto.Composto = produto.Composto;
+            produtoDto.Dimensao = produto.Dimensao.toDTO();
+            List<ProdutoMaterialDto> ListaPm = new List<ProdutoMaterialDto>();
+            foreach (ProdutoMaterial pm in produto.ProdutosMateriais)
+            {
+                ListaPm.Add(pm.toDTO());
+            }
+            List<ProdutoDto> ListaP = new List<ProdutoDto>();
+            foreach (Produto p in produto.Produtos)
+            {
+                ListaP.Add(p.toDTO());
+            }
+            return Ok(produtoDto);
         }
 
         [HttpGet("{Produtos}", Name = "GetProdutoPartes")]
-        public ActionResult<List<Produto>> GetProdutoPartes(int id)
+        public async Task<ActionResult<List<ProdutoDto>>> GetProdutoPartes(int id)
         {
-            var item = _context.Produtos.Find(id);
-            if (item == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var produto = repProduto.GetProdutoByID(id);
+
+            if (produto == null)
             {
                 return NotFound();
             }
-            List<Produto> P = (List<Produto>) item.Produtos;
-            return P;
+
+            
+            List<ProdutoDto> ListaP = new List<ProdutoDto>();
+            foreach (Produto p in produto.Produtos)
+            {
+                ListaP.Add(p.toDTO());
+            }
+            return ListaP;
         }
 
         [HttpGet("{Produtos}", Name = "GetProdutoParteEM")]
-        public ICollection<Produto> GetProdutosPai(int id)
+        public async Task<ActionResult<ICollection<Produto>>> GetProdutosPai(int id)
         {
-            var item = _context.Produtos.Find(id);
-            if (item == null)
+            if (!ModelState.IsValid)
             {
-                return null;
+                return BadRequest(ModelState);
             }
-            ICollection<Produto> resultado = new List<Produto>();
+
+            var produto = repProduto.GetProdutoByID(id);
+
+            if (produto == null)
+            {
+                return NotFound();
+            }
+            List<Produto> resultado = new List<Produto>();
             
-            foreach (Produto P in GetProdutosIEnum())
+            foreach (Produto P in repProduto.GetProdutos())
             {
                 foreach (Produto P1 in P.Produtos)
                 {
-                    if (P1.Id == item.Id)
+                    if (P1.Id == produto.Id)
                     {
                        resultado.Add(P);
                     }
@@ -112,24 +160,7 @@ namespace TodoApi.Controllers
             return resultado;
         }
 
-
-
-        [HttpPost]
-        public IActionResult Create(Produto item)
-        {
-            _context.Produtos.Add(item);
-            _context.SaveChanges();
-
-            return CreatedAtRoute("GetProduto", new
-            {
-                id = item.Id,
-                nome = item.Nome,
-                produtos = item.Produtos,
-                material = item.Material,
-                categoria = item.Categoria,
-                categoriaID = item.Categoria
-            }, item);
-        }
+                     
         // POST: api/Produtos
         [HttpPost]
         public async Task<IActionResult> PostProduto([FromBody] Produto Produto)
@@ -139,18 +170,18 @@ namespace TodoApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            Produto.Categoria = catrep.GetCategoriaByID(Produto.CategoriaId);
+            Produto.Categoria = repCategoria.GetCategoriaByID(Produto.Categoria.Id);
              
-            var auxDimensao = dimrep.GetDimensoesByID(Produto.DimensaoId);
+            var auxDimensao = repDimensao.GetDimensoesByID(Produto.Dimensao.Id);
             Produto.Dimensao = auxDimensao;
-            var auxMaterial = matrep.GetMaterialByID(Produto.MaterialId);
-            Produto.Material = auxMaterial;
+            var auxMaterial = repMaterial.GetMaterialByProduto(Produto);
+            Produto.ProdutosMateriais.Add(auxMaterial);
             foreach (int id in Produto.ProdutosId)
             {
-                var aux = prorep.GetProdutoByID(id);
-                aux.Categoria = catrep.GetCategoriaByID(aux.CategoriaId);
-                aux.Dimensao = dimrep.GetDimensoesByID(aux.DimensaoId);
-                aux.Material = matrep.GetMaterialByID(aux.MaterialId);
+                var aux = repProduto.GetProdutoByID(id);
+                aux.Categoria = repCategoria.GetCategoriaByID(aux.Categoria.Id);
+                aux.Dimensao = repDimensao.GetDimensoesByID(aux.Dimensao.Id);
+                aux.ProdutosMateriais.Add(repMaterial.GetMaterialByProduto(Produto));
                 Produto.Produtos.Add(aux);
 
             }
@@ -159,8 +190,8 @@ namespace TodoApi.Controllers
 
             if (auxB == true)
             {
-                prorep.InsertProduto(Produto);
-                prorep.Save();
+                repProduto.InsertProduto(Produto);
+                repProduto.Save();
 
             }
             else
@@ -191,35 +222,76 @@ namespace TodoApi.Controllers
             return auxB;
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Produto item)
+        public async Task<IActionResult> PutProduto(int id, Produto item)
         {
-            var todo = _context.Produtos.Find(id);
-            if (todo == null)
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var produto = repProduto.GetProdutoByID(id);
+
+            if (produto == null)
             {
                 return NotFound();
             }
 
-            todo.Nome = item.Nome;
-            todo.Material = item.Material;
-            todo.Categoria = item.Categoria;
-            todo.Produtos = item.Produtos;
+            produto.Nome = item.Nome;
+            produto.Composto = item.Composto;
+            produto.Dimensao = item.Dimensao;
+            produto.Categoria = item.Categoria;
+            List<ProdutoMaterialDto> ListaPm = new List<ProdutoMaterialDto>();
+            foreach (ProdutoMaterial pm in produto.ProdutosMateriais)
+            {
+                ListaPm.Add(pm.toDTO());
+            }
+            List<ProdutoDto> ListaP = new List<ProdutoDto>();
+            foreach (Produto p in produto.Produtos)
+            {
+                ListaP.Add(p.toDTO());
+            }
+            repProduto.UpdateProduto(produto);
+            try
+            {
+                repProduto.Save();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProdutoExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            _context.Produtos.Update(todo);
-            _context.SaveChanges();
             return NoContent();
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var todo = _context.Produtos.Find(id);
-            if (todo == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var produto = repProduto.GetProdutoByID(id);
+            if (produto == null)
             {
                 return NotFound();
             }
 
-            _context.Produtos.Remove(todo);
-            _context.SaveChanges();
-            return NoContent();
+            repProduto.DeleteProduto(id);
+            repProduto.Save();
+
+            return Ok(produto);
+        }
+        private bool ProdutoExists(int id)
+        {
+            return repProduto.GetProdutos().Any(e => e.Id == id);
         }
     }
 }
