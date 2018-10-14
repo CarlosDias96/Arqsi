@@ -18,6 +18,7 @@ namespace TodoApi.Controllers
         public CategoriaController(ICategoriaRepository categoriaRepository)
         {
             this.repcategoria = categoriaRepository;
+
         }
 
         [HttpGet]
@@ -99,8 +100,12 @@ namespace TodoApi.Controllers
                 return BadRequest(ModelState);
             }
 
+           
             repcategoria.InsertCategoria(categoria);
             repcategoria.Save();
+            
+
+            
 
             return CreatedAtAction("GetCategoria", new { id = categoria.Id }, categoria);
 

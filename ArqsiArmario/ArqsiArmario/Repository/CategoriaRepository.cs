@@ -62,16 +62,19 @@ namespace ArqsiArmario.Repository
         public void InsertCategoria(Categoria Categoria)
         {
              context.Categorias.Add(Categoria);
+             
         }
 
         public void Save()
         {
             context.SaveChanges();
+
         }
 
         public void UpdateCategoria(Categoria Categoria)
         {
             context.Entry(Categoria).State = EntityState.Modified;
         }
+
     }
 }
