@@ -39,7 +39,7 @@ namespace ArqsiArmario.Models
             modelBuilder.Entity<ProdutoMaterial>()
                 .HasOne(bc => bc.Material)
                 .WithMany(c => c.ProdutoMateriais)
-                .HasForeignKey(bc => bc.Material);
+                .HasForeignKey(bc => bc.MaterialId);
         }
         public DbSet<Acabamento> Acabamentos { get; set; }
         public DbSet<Categoria> Categorias { get; set; }

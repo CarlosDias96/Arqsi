@@ -34,6 +34,11 @@ namespace ArqsiArmario.Models
             this.Dimensao = Dimensao;
         }
 
+        public Produto(string Nome)
+        {
+            this.Nome = Nome;
+        }
+
         public ProdutoDto toDTO()
         {
             List<ProdutoDto> subProdutos = new List<ProdutoDto>();
