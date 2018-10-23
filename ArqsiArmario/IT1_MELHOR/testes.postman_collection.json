@@ -1,0 +1,1016 @@
+{
+	"info": {
+		"_postman_id": "73de92c2-8a3a-4930-a324-34a2290be5cf",
+		"name": "testes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAcabamentoTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf74a15e-8903-4208-89dc-03a6046c90d6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/acabamento",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"acabamento"
+					]
+				},
+				"description": "GetAcabamentoTeste"
+			},
+			"response": [
+				{
+					"name": "teste1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/acabamento",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"acabamento"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Oct 2018 22:42:06 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"nome\": \"Porto\",\n        \"id\": 0\n    },\n    {\n        \"nome\": \"oooootoa\",\n        \"id\": 0\n    },\n    {\n        \"nome\": \"vivivitoa\",\n        \"id\": 0\n    },\n    {\n        \"nome\": \"Cagetadjasodjasodjoafas\",\n        \"id\": 0\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GetMaterialTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b0081a8-2b2b-4ae4-877d-1aeb070921ea",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/material",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"material"
+					]
+				},
+				"description": "GetMaterialTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PostAcabamentoTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6aae05c9-5088-43e5-924d-ca5918ede32f",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;\r",
+							"var contentTypeHeaderExists =\r",
+							"responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+							"var response = JSON.parse(responseBody);\r",
+							"if (contentTypeHeaderExists) {\r",
+							"tests[\"Content-Type is application/json\"] =\r",
+							"responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+							"}\r",
+							"tests[\"Name is set\"] = response.nome === \"metal\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\"nome\": \"metal\"\n}\n"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/acabamento",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"acabamento"
+					]
+				},
+				"description": "PostAcabamentoTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PostMaterialTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc65aa5c-d5cf-4e58-a07a-bc2ea413b35a",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;\r",
+							"var contentTypeHeaderExists =\r",
+							"responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+							"var response = JSON.parse(responseBody);\r",
+							"if (contentTypeHeaderExists) {\r",
+							"tests[\"Content-Type is application/json\"] =\r",
+							"responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+							"}\r",
+							"tests[\"Name is set\"] = response.nome === \"Aluminio\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"Aluminio\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/material",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"material"
+					]
+				},
+				"description": "PostMaterialTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PostCategoriaTeste",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": "PostCategoriaTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PostDimensaodcTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb236b94-8847-4aa9-a584-99911957d541",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;\r",
+							"var contentTypeHeaderExists =\r",
+							"responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+							"var response = JSON.parse(responseBody);\r",
+							"if (contentTypeHeaderExists) {\r",
+							"tests[\"Content-Type is application/json\"] =\r",
+							"responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+							"}\r",
+							"tests[\"alturaMin is set\"] = response.alturaMin === 1;\r",
+							"tests[\"alturaMax is set\"] = response.alturaMax === 20;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"listaDiscreta\": null,\n        \"alturaMin\": 1,\n        \"alturaMax\": 20\n    }"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/dimensaodc",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"dimensaodc"
+					]
+				},
+				"description": "PostDimensaoDCTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PostDimensaoTeste",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": "PostDimensaoTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PostProdutoTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f388d37-81ea-46ae-ba0e-31db196075ea",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;\r",
+							"var contentTypeHeaderExists =\r",
+							"responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+							"var response = JSON.parse(responseBody);\r",
+							"if (contentTypeHeaderExists) {\r",
+							"tests[\"Content-Type is application/json\"] =\r",
+							"responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+							"}\r",
+							"tests[\"Name is set\"] = response.nome === \"Produto teste\";\r",
+							"tests[\"Composto is set to false\"] = response.composto === false;\r",
+							"tests[\"Produtos is set to null\"] = response.produtos === null;\r",
+							"tests[\"categoria is set to null\"] = response.categoria === null;\r",
+							"tests[\"categoriaId is set to null\"] = response.categoriaId === null;\r",
+							"tests[\"dimensao is set to null\"] = response.dimensao === null;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"nome\": \"Produto teste\",\n        \"composto\": false,\n        \"produtos\": null,\n        \"categoria\": null,\n        \"categoriaId\": null,\n        \"dimensao\": null\n        \n   }"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/produto",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"produto"
+					]
+				},
+				"description": "PostProdutoTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "GetDimensaodcTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52a233b3-8f7a-4e8f-a11d-910da69e4788",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/dimensaodc",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"dimensaodc"
+					]
+				},
+				"description": "GetDimensaodcTest"
+			},
+			"response": []
+		},
+		{
+			"name": "GetCategoriaTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc21e1d4-94a2-4ecb-a315-ada98d42ebb9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/categoria",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"categoria"
+					]
+				},
+				"description": "GetCategoriaTest"
+			},
+			"response": []
+		},
+		{
+			"name": "GetProdutoTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61a019bd-acfe-4bf1-b15a-1b00ef781515",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/produto",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"produto"
+					]
+				},
+				"description": "GetProdutoTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "GetDimensaodcTeste",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": "GetDimensaodcTeste\n"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAcabamentoTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7707d37e-e02a-4598-8a5f-7d450dea6c19",
+						"exec": [
+							"pm.test(\"Status code is 200 - apagado\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/acabamento/9",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"acabamento",
+						"9"
+					]
+				},
+				"description": "DeleteAcabamentoTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCategoriaTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6637c98-98a6-45fe-a12f-d0c3adfd8269",
+						"exec": [
+							"pm.test(\"Status code is 200 - apagado\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/categoria/9",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"categoria",
+						"9"
+					]
+				},
+				"description": "DeleteCategoriaTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteMaterialTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d5edc4e8-e9e3-4426-9dc6-24794908493e",
+						"exec": [
+							"pm.test(\"Status code is 200 - apagado\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/material/4",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"material",
+						"4"
+					]
+				},
+				"description": "DeleteMaterialTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteDimensaodcTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28b4fa04-8836-4d89-917b-3cadfc64f16c",
+						"exec": [
+							"pm.test(\"Status code is 200 - apagado\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/dimensaodc/5",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"dimensaodc",
+						"5"
+					]
+				},
+				"description": "DeleteDimensaodcTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProdutoTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "160389a0-21db-4dd5-9561-6f1b2bf400b1",
+						"exec": [
+							"pm.test(\"Status code is 200 - apagado\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/json\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/produto/6",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"produto",
+						"6"
+					]
+				},
+				"description": "DeleteProdutoTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PutAcabamentoTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "581930a1-0fe1-44d9-8c85-fa8ef71c3eba",
+						"exec": [
+							"pm.test(\"Status code is 204 - atualizado\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Nome\":\"update1\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/acabamento/13",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"acabamento",
+						"13"
+					]
+				},
+				"description": "PutAcabamentoTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PutCategoriaTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2992f82e-b79e-4c05-95cc-8ec71ed90707",
+						"exec": [
+							"pm.test(\"Status code is 204 - atualizado\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\":\"categoria Atualizada\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/categoria/6",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"categoria",
+						"6"
+					]
+				},
+				"description": "PutCategoriaTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PutMaterialTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85ea2daf-40c7-4738-9ba1-d1812bcae156",
+						"exec": [
+							"pm.test(\"Status code is 204 - atualizado\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\":\"material Atualizado\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/material/2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"material",
+						"2"
+					]
+				},
+				"description": "PutMaterialTeste"
+			},
+			"response": []
+		},
+		{
+			"name": "PutProdutoTeste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23aa80a9-03f5-4b97-b1f7-f398643da9a1",
+						"exec": [
+							"pm.test(\"Status code is 204 - atualizado\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\":\"produto Atualizado\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/produto/6",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"produto",
+						"6"
+					]
+				},
+				"description": "PutProdutoTeste"
+			},
+			"response": []
+		}
+	]
+}
